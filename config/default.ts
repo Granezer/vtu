@@ -22,13 +22,21 @@ const constants = loadVariables(
         PORT: {
             required: currentDeployment.isProduction,
             default: () => (currentDeployment.isTest ? 0 : 5000),
-            parser: (v: any) => (currentDeployment.isTest ? 0: Number(v))
+            parser: (value: number) => (currentDeployment.isTest ? 0: value)
+        },
+
+        MONGODB_URI: {
+            required: !currentDeployment.isTest,
+            default: ""
         }
     }
 )
 
 export const config = {
-    port: constants.PORT
+    port: constants.PORT,
+    db: {
+        dbURI: constants.MONGODB_URI!
+    }
 }
 
 export default config;
