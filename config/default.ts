@@ -34,7 +34,7 @@ const constants = loadVariables(
         SALT_WORK_FACTOR: {
             required: !currentDeployment.isTest,
             default: 10,
-            parser: (value: number) => (currentDeployment.isTest ? 10 : value)
+            parser: (value: number) => (currentDeployment.isDev ? 10 : Number(value))
         }
     }
 )

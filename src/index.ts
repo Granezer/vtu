@@ -12,6 +12,8 @@ app.use(cors({
     credentials: true
 }))
 
+app.use(express.json());
+
 app.listen(port, async () => {
     log.info(`App is running on http://localhost:${port}/`)
 
