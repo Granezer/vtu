@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import { loadVariables } from 'apitoolz';
+import { values } from 'lodash';
 
 dotenv.config();
 
@@ -22,12 +23,18 @@ const constants = loadVariables(
         PORT: {
             required: currentDeployment.isProduction,
             default: () => (currentDeployment.isTest ? 0 : 5000),
-            parser: (value: number) => (currentDeployment.isTest ? 0: value)
+            parser: (value: number) => (currentDeployment.isTest ? 0 : value)
         },
 
         MONGODB_URI: {
             required: !currentDeployment.isTest,
             default: ""
+        },
+
+        SALT_WORK_FACTOR: {
+            required: !currentDeployment.isTest,
+            default: 10,
+            parser: (value: number) => (currentDeployment.isTest ? 10 : value)
         }
     }
 )
@@ -36,7 +43,8 @@ export const config = {
     port: constants.PORT,
     db: {
         dbURI: constants.MONGODB_URI!
-    }
+    },
+    saltWorkFactor: constants.SALT_WORK_FACTOR
 }
 
 export default config;
