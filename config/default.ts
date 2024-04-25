@@ -35,7 +35,31 @@ const constants = loadVariables(
             required: !currentDeployment.isTest,
             default: 10,
             parser: (value: number) => (currentDeployment.isDev ? 10 : Number(value))
-        }
+        },
+
+        PUBLIC_KEY: {
+            required: !currentDeployment.isTest,
+            default: "",
+            parser: (value: string) => (currentDeployment.isTest ? "" : value)
+        },
+
+        PRIVATE_KEY: {
+            required: !currentDeployment.isTest,
+            default: "",
+            parser: (value: string) => (currentDeployment.isTest ? "" : value)
+        },
+
+        ACCESS_TOKEN_TTL: {
+            required: !currentDeployment.isTest,
+            default: '15m',
+            parser: (value: string) => (currentDeployment.isDev ? '15m' : value)
+        },
+
+        REFRESH_TOKEN_TTL: {
+            required: !currentDeployment.isTest,
+            default: '1y',
+            parser: (value: string) => (currentDeployment.isDev ? '1y' : value)
+        },
     }
 )
 
@@ -44,7 +68,11 @@ export const config = {
     db: {
         dbURI: constants.MONGODB_URI!
     },
-    saltWorkFactor: constants.SALT_WORK_FACTOR
+    saltWorkFactor: constants.SALT_WORK_FACTOR,
+    publicKey: constants.PUBLIC_KEY,
+    privateKey: constants.PRIVATE_KEY,
+    accessTokenTtl: constants.ACCESS_TOKEN_TTL,
+    refreshTokenTtl: constants.REFRESH_TOKEN_TTL
 }
 
 export default config;
