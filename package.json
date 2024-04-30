@@ -13,6 +13,7 @@
   "dependencies": {
     "@types/nodemon": "^1.19.6",
     "@types/pino": "^7.0.5",
+    "@types/uniqid": "^5.3.4",
     "apitoolz": "^0.3.27",
     "bcrypt": "^5.1.1",
     "config": "^3.3.11",
@@ -27,6 +28,7 @@
     "nanoid": "^5.0.7",
     "pino": "^8.20.0",
     "pino-pretty": "^11.0.0",
+    "uniqid": "^5.4.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
