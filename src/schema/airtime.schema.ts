@@ -8,7 +8,7 @@ export const createAirtimeSchema = object({
         amount: number({
             required_error: "Top up amount is required"
         }),
-        phoneNumber: number({
+        phoneNumber: string({
             required_error: "Phone number is required"
         }).min(10, "Invalid Phone Number")
     })

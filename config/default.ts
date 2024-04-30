@@ -60,6 +60,21 @@ const constants = loadVariables(
             default: '1y',
             parser: (value: string) => (currentDeployment.isDev ? '1y' : value)
         },
+
+        VTU_API_KEY: {
+            required: !currentDeployment.isTest,
+            default: ""
+        },
+
+        VTU_PK: {
+            required: !currentDeployment.isTest,
+            default: ""
+        },
+
+        VTU_SK: {
+            required: !currentDeployment.isTest,
+            default: ""
+        }
     }
 )
 
@@ -72,7 +87,10 @@ export const config = {
     publicKey: constants.PUBLIC_KEY,
     privateKey: constants.PRIVATE_KEY,
     accessTokenTtl: constants.ACCESS_TOKEN_TTL,
-    refreshTokenTtl: constants.REFRESH_TOKEN_TTL
+    refreshTokenTtl: constants.REFRESH_TOKEN_TTL,
+    vtuApiKey: constants.VTU_API_KEY,
+    vtuSecretKey: constants.VTU_SK,
+    vtuPrivateKey: constants.VTU_PK
 }
 
 export default config;

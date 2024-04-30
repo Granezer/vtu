@@ -7,7 +7,7 @@ export interface AirtimeDocument extends mongoose.Document {
     user: UserDocument["_id"]
     serviceId: string,
     amount: number,
-    phoneNumber: number,
+    phoneNumber: string,
     createdAt: Date
 }
 
@@ -32,7 +32,7 @@ const airtimeSchema = new mongoose.Schema(
             required: true
         },
         phoneNumber: {
-            type: Number,
+            type: String,
             required: true
         }
     }, 
@@ -41,6 +41,6 @@ const airtimeSchema = new mongoose.Schema(
     }
 );
 
-const AirtimeModel = mongoose.model<AirtimeDocument>("Airtime", airtimeSchema);
+const AirtimeModel = mongoose.model("Airtime", airtimeSchema);
 
 export default AirtimeModel;
