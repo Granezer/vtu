@@ -9,6 +9,8 @@ import { createAirtimeSchema } from "../schema/airtime.schema";
 import { buyAirtimeProductHandler } from "../controllers/airtime.controller";
 import { createDataSchema } from "../schema/data.schema";
 import { buyDataProductHandler } from "../controllers/data.controller";
+import { createElectricitySchema, verifyMeterNumberSchema } from "../schema/electricity.schema";
+import { buyElectricityProductHandler, verifyMeterHandler } from "../controllers/electricity.controller";
 
 function routes(app: Express) {
     app.get('/healthcheck', (req: Request, res: Response) => res.sendStatus(200));
@@ -24,6 +26,9 @@ function routes(app: Express) {
     app.post('/api/airtime', requireUser, [requireUser, validate(createAirtimeSchema)], buyAirtimeProductHandler);
 
     app.post('/api/data', requireUser, [requireUser, validate(createDataSchema)], buyDataProductHandler);
+
+    app.post('/api/electricity', requireUser, [requireUser, validate(createElectricitySchema)], buyElectricityProductHandler);
+    app.post('/api/electricity/verify', requireUser, [requireUser, validate(verifyMeterNumberSchema)], verifyMeterHandler);
 }
 
 

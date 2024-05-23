@@ -8,7 +8,7 @@ export async function buyDataProductHandler(req: Request<{}, {}, DataPurchaseInp
 
     const body = req.body;
 
-    const airtime = await purchaseDataProduct({ ...body, user: userId } as Omit<DataDocument, 'createdAt'>);
+    const data = await purchaseDataProduct({ ...body, user: userId } as Omit<DataDocument, 'createdAt'>);
 
-    return res.send(airtime);
+    return res.send(data);
 };
