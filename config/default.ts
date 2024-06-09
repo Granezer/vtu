@@ -40,13 +40,13 @@ const constants = loadVariables(
         PUBLIC_KEY: {
             required: !currentDeployment.isTest,
             default: "",
-            parser: (value: string) => (currentDeployment.isTest ? "" : value)
+            parser: (value: string) => (currentDeployment.isTest ? value : value)
         },
 
         PRIVATE_KEY: {
             required: !currentDeployment.isTest,
             default: "",
-            parser: (value: string) => (currentDeployment.isTest ? "" : value)
+            parser: (value: string) => (currentDeployment.isTest ? value : value)
         },
 
         ACCESS_TOKEN_TTL: {
