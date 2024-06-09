@@ -1,36 +1,18 @@
 import supertest from "supertest"
 import createServer from "../utils/server"
-import mongoose from "mongoose";
-import { MongoMemoryServer } from "mongodb-memory-server";
 import { signJwt } from "../utils/jwt";
+import { dbConnect, dbDisconnect } from "./utils/dbHandler";
+import { purchaseAirtimePayload, userPayload } from "./utils/fixtures";
 
 const app = createServer();
 
-const userId = new mongoose.Types.ObjectId().toString();
-
-const purchaseAirtimePayload = {
-    "user": userId,
-    "serviceId": "airtel",
-    "amount": 100,
-    "phoneNumber": "08011111111",
-}
-
-const userPayload = {
-    "user": userId,
-    "email": "dejalltime@gmail.com",
-    "username": "dej"
-}
-
 describe('airtime', () => {
     beforeAll(async () => {
-        const mongoServer = await MongoMemoryServer.create();
-    
-        await mongoose.connect(mongoServer.getUri());
+        dbConnect();
       });
     
       afterAll(async () => {
-        await mongoose.disconnect();
-        await mongoose.connection.close();
+        dbDisconnect();
       });
 
     describe('buy airtime route', () => {
@@ -44,9 +26,9 @@ describe('airtime', () => {
         })
 
         describe('given the user is logged in', () => {
-            it('should purchase airtime successfull and returns 200', async () => {
+            it('should purchase airtime successfully and returns 200', async () => {
                 const jwt = signJwt(userPayload);
-                
+
                 const { body, statusCode } = await supertest(app)
                     .post('/api/airtime')
                     .set('Authorization', `Bearer ${jwt}`)
