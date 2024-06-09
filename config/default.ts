@@ -22,7 +22,7 @@ const constants = loadVariables(
     {
         PORT: {
             required: currentDeployment.isProduction,
-            default: () => (currentDeployment.isTest ? 0 : 5000),
+            default: () => (currentDeployment.isTest ? 80 : 5000),
             parser: (value: number) => (currentDeployment.isTest ? 0 : value)
         },
 

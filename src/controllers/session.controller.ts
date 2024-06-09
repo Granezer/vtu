@@ -11,6 +11,7 @@ export async function createUserSessionHandler(req: Request, res: Response){
         return res.status(401).send("Invalid email or password");
     }
 
+    // @ts-ignore
     const session = createSession(user._id, req.get("user-agent") || "");
 
     const accessToken = signJwt(
