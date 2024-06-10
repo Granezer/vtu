@@ -3,6 +3,7 @@ import createServer from "../utils/server"
 import { signJwt } from "../utils/jwt";
 import { dbConnect, dbDisconnect } from "./utils/dbHandler";
 import { purchaseAirtimePayload, userPayload } from "./utils/fixtures";
+import * as AirtimeService from "../services/airtime.service"
 
 const app = createServer();
 
@@ -37,6 +38,24 @@ describe('airtime', () => {
                 expect(statusCode).toBe(200);
 
                 expect(body).toHaveProperty('_id')
+            })
+        })
+
+        describe('given the vtu api service is down', () => {
+            it('should return an error 503', async () => {
+                const createAirtimePurchaseMock = jest.spyOn(AirtimeService, 'purchaseAirtimeProduct')
+                .mockRejectedValueOnce("Service Unavailable");
+
+                const jwt = signJwt(userPayload);
+
+                const { statusCode } = await supertest(app)
+                    .post('/api/airtime')
+                    .set('Authorization', `Bearer ${jwt}`)
+                    .send(purchaseAirtimePayload)
+
+                expect(statusCode).toBe(503);
+
+                expect(createAirtimePurchaseMock).toHaveBeenCalled();
             })
         })
     })

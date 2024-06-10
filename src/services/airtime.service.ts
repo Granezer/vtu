@@ -1,5 +1,6 @@
 import AirtimeModel, { AirtimeDocument } from "../models/airtime.model";
 import config from "../../config/default";
+import log from "../utils/logger";
 
 export async function purchaseAirtimeProduct(input: Omit<AirtimeDocument, 'createdAt'>){
 
@@ -23,9 +24,11 @@ export async function purchaseAirtimeProduct(input: Omit<AirtimeDocument, 'creat
     })
 
     const result = await response.json();
-    console.log(result);
+    log.info(result);
 
     if(response.status === 200){
         return airtime;
+    } else {
+        throw new Error(response.statusText);
     }
 }
