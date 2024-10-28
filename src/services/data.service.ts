@@ -14,7 +14,7 @@ export async function purchaseDataProduct(input: Omit<DataDocument, 'createdAt'>
         variation_code: data.variationCode
     }
 
-    const response = await fetch('https://sandbox.vtpass.com/api/pay', {
+    const response = await fetch(`${config.baseUrl}/pay`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",

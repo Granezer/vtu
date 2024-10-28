@@ -22,7 +22,7 @@ const constants = loadVariables(
     {
         PORT: {
             required: currentDeployment.isProduction,
-            default: () => (currentDeployment.isTest ? 80 : 5000),
+            default: () => (currentDeployment.isTest ? 80 : 5001),
             parser: (value: number) => (currentDeployment.isTest ? 0 : value)
         },
 
@@ -70,8 +70,11 @@ const constants = loadVariables(
             required: !currentDeployment.isTest,
             default: ""
         },
-
         VTU_SK: {
+            required: !currentDeployment.isTest,
+            default: ""
+        },
+        BASE_URL: {
             required: !currentDeployment.isTest,
             default: ""
         }
@@ -90,7 +93,8 @@ export const config = {
     refreshTokenTtl: constants.REFRESH_TOKEN_TTL,
     vtuApiKey: constants.VTU_API_KEY,
     vtuSecretKey: constants.VTU_SK,
-    vtuPrivateKey: constants.VTU_PK
+    vtuPrivateKey: constants.VTU_PK,
+    baseUrl: constants.BASE_URL
 }
 
 export default config;

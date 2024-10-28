@@ -13,7 +13,7 @@ export async function purchaseAirtimeProduct(input: Omit<AirtimeDocument, 'creat
         phone: airtime.phoneNumber
     }
 
-    const response = await fetch('https://sandbox.vtpass.com/api/pay', {
+    const response = await fetch(`${config.baseUrl}/pay`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
