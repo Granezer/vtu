@@ -15,7 +15,7 @@ export async function purchaseElectricityProduct(input: Omit<ElectricityDocument
         variation_code: electricity.variationCode
     }
 
-    const response = await fetch('https://sandbox.vtpass.com/api/pay', {
+    const response = await fetch(`${config.baseUrl}/pay`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
@@ -41,7 +41,7 @@ export async function verifyMeter(meterDetails: any){
         type: meterDetails.type
     }
 
-    const response = await fetch('https://sandbox.vtpass.com/api/merchant-verify', {
+    const response = await fetch(`${config.baseUrl}/merchant-verify`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",

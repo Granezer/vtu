@@ -6,6 +6,8 @@ import { purchaseAirtimeProduct } from "../services/airtime.service";
 export async function buyAirtimeProductHandler(req: Request<{}, {}, AirtimePurchaseInput['body']>, res: Response){
     try{
         const userId = res.locals.user._id;
+
+        console.log('user', userId)
     
         const body = req.body;
     

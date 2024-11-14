@@ -11,6 +11,7 @@ import { createDataSchema } from "../schema/data.schema";
 import { buyDataProductHandler } from "../controllers/data.controller";
 import { createElectricitySchema, verifyMeterNumberSchema } from "../schema/electricity.schema";
 import { buyElectricityProductHandler, verifyMeterHandler } from "../controllers/electricity.controller";
+import { paystackWebhook } from "../controllers/payment.controller";
 
 function routes(app: Express) {
     app.get('/healthcheck', (req: Request, res: Response) => res.sendStatus(200));
@@ -29,6 +30,8 @@ function routes(app: Express) {
 
     app.post('/api/electricity', requireUser, [requireUser, validate(createElectricitySchema)], buyElectricityProductHandler);
     app.post('/api/electricity/verify', requireUser, [requireUser, validate(verifyMeterNumberSchema)], verifyMeterHandler);
+
+    app.post("/paystack-webhook", paystackWebhook);
 }
 
 

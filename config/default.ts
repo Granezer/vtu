@@ -77,7 +77,15 @@ const constants = loadVariables(
         BASE_URL: {
             required: !currentDeployment.isTest,
             default: ""
-        }
+        },
+        PAYSTACK_SECRET_KEY: {
+            required: !currentDeployment.isTest,
+            default: ""
+        },
+        PAYSTACK_BASE_URL: {
+            required: !currentDeployment.isTest,
+            default: ""
+        },
     }
 )
 
@@ -94,7 +102,10 @@ export const config = {
     vtuApiKey: constants.VTU_API_KEY,
     vtuSecretKey: constants.VTU_SK,
     vtuPrivateKey: constants.VTU_PK,
-    baseUrl: constants.BASE_URL
+    baseUrl: constants.BASE_URL,
+    paystackSecretKey: constants.PAYSTACK_SECRET_KEY,
+    paystackBaseUrl: constants.PAYSTACK_BASE_URL
+
 }
 
 export default config;

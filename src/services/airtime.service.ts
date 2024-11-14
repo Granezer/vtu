@@ -2,33 +2,41 @@ import AirtimeModel, { AirtimeDocument } from "../models/airtime.model";
 import config from "../../config/default";
 import log from "../utils/logger";
 
-export async function purchaseAirtimeProduct(input: Omit<AirtimeDocument, 'createdAt'>){
-
-    let airtime = await AirtimeModel.create(input);
+export async function purchaseAirtimeProduct(input: Omit<AirtimeDocument, 'createdAt'>) {
+    let airtime = await AirtimeModel.create({
+        ...input,
+        status: 'pending',
+    });
 
     const payload = {
-        request_id: airtime.requestId,
-        serviceID: airtime.serviceId,
-        amount: airtime.amount,
-        phone: airtime.phoneNumber
-    }
+        email: 'dejalltime@gmail.com',
+        amount: airtime.amount * 100,
+        requestId: airtime.requestId,
+        serviceId: airtime.serviceId,
+        productType: 'airtime',
+        reference: airtime.requestId
+    };
 
-    const response = await fetch(`${config.baseUrl}/pay`, {
+    const paystackResponse = await fetch(`${config.paystackBaseUrl}/transaction/initialize`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
-            "api-key": config.vtuApiKey,
-            "secret-key": config.vtuSecretKey
+            Authorization: `Bearer ${config.paystackSecretKey}`,
         },
-        body: JSON.stringify(payload)
-    })
+        body: JSON.stringify(payload),
+    });
 
-    const result = await response.json();
-    log.info(result);
+    const paystackResult = await paystackResponse.json();
 
-    if(response.status === 200){
-        return airtime;
+    if (paystackResult.status === true) {
+        const paymentUrl = paystackResult.data.authorization_url;
+        log.info(`Paystack payment URL generated: ${paymentUrl}`);
+
+        return {
+            airtime,
+            paymentUrl, 
+        };
     } else {
-        throw new Error(response.statusText);
+        throw new Error('Failed to generate Paystack payment link');
     }
 }
