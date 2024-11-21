@@ -9,7 +9,7 @@ export async function purchaseAirtimeProduct(input: Omit<AirtimeDocument, 'creat
     });
 
     const payload = {
-        email: 'dejalltime@gmail.com',
+        email: 'panbux@hotmail.com',
         amount: airtime.amount * 100,
         requestId: airtime.requestId,
         serviceId: airtime.serviceId,

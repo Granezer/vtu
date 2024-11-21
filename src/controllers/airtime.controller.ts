@@ -8,7 +8,7 @@ export async function buyAirtimeProductHandler(req: Request<{}, {}, AirtimePurch
         const userId = res.locals.user._id;
 
         console.log('user', userId)
-    
+        
         const body = req.body;
     
         const airtime = await purchaseAirtimeProduct({ ...body, user: userId } as Omit<AirtimeDocument, 'createdAt'>);
