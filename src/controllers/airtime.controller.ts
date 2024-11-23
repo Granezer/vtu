@@ -7,7 +7,6 @@ export async function buyAirtimeProductHandler(req: Request<{}, {}, AirtimePurch
     try{
         const userId = res.locals.user._id;
 
-        console.log('user', userId)
         
         const body = req.body;
     
