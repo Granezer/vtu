@@ -34,6 +34,4 @@ function routes(app: Express) {
     app.post("/paystack-webhook", paystackWebhook);
 }
 
-
-
 export default routes;
